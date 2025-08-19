@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Manager Dashboard</title>
+  <style>
+    body {
+        background-color: rgb(241, 247, 247);
+        align-items: center;
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    #controls {
+        margin-bottom: 5px;
+    }
+    .task {
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: #f4d7d7;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    .task.completed {
+      background: #d4edda;
+      text-decoration: double;
+    }
+    #noTasks {
+      display: none;
+      color: #777;
+      font-style: italic;
+      margin-top: 10px;
+    }
+    .btn-group button {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Task Manager Dashboard</h1>
+
+  <div id="controls">
+    <input type="text" id="taskInput" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+    <button onclick="setGridView()">Grid View</button>
+  </div>
+
+  <div id="taskContainer"></div>
+  <p id="Empty">Empty list</p>
+  </div>
+
+  <script>
+    const taskContainer = document.getElementById("taskContainer");
+    const noTasksMsg = document.getElementById("Empty");
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+      if (!taskText) return;
+
+      const taskDiv = document.createElement("div");
+      taskDiv.classList.add("task");
+
+      const taskName = document.createElement("span");
+      taskName.textContent = taskText ;
+
+      const btnGroup = document.createElement("div");
+      btnGroup.classList.add("btn-group");
+
+      const completeBtn = document.createElement("button");
+      completeBtn.textContent = "✔";
+      completeBtn.onclick = () => completeTask(taskDiv);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "🗑";
+      deleteBtn.onclick = () => deleteTask(taskDiv);
+
+      btnGroup.appendChild(completeBtn);
+      btnGroup.appendChild(deleteBtn);
+
+      taskDiv.appendChild(taskName);
+      taskDiv.appendChild(btnGroup);
+
+      taskContainer.appendChild(taskDiv);
+      input.value = "";
+      checkNoTasks();
+    }
+
+    function completeTask(task) {
+      task.classList.toggle("completed");
+      checkNoTasks();
+    }
+
+    function deleteTask(task) {
+      task.remove();
+      checkNoTasks();
+    }
+
+    function setGridView() {
+      taskContainer.style.display = "block";
+    }
+    // function list() {
+    //   taskContainer.style.display = "nones";
+    // }
+
+    function checkNoTasks() {
+      const tasks = document.querySelectorAll(".task");
+      noTasksMsg.style.display = tasks.length === 0 ? "block" : "none";
+    }
+  </script>
+</body>
+</html>

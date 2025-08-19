@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    input {
+      width: 60px;
+      text-align: center;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+    p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .done {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Countdown Timer</h1>
+  
+  <label>
+    Start from:
+    <input type="number" id="startValue" value="10" min="1">
+  </label>
+  <br><br>
+
+  <p id="display">10</p>
+  <button id="startBtn">Start</button>
+  <button id="resetBtn">Reset</button>
+
+  <script>
+    const startValueInput = document.getElementById("startValue");
+    const display = document.getElementById("display");
+    const startBtn = document.getElementById("startBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let countdown;
+    let timeLeft = 10;
+
+    // Start countdown
+    startBtn.addEventListener("click", function() {
+      clearInterval(countdown); // Prevent multiple intervals
+      timeLeft = parseInt(startValueInput.value) || 10;
+      display.classList.remove("done");
+      display.textContent = timeLeft;
+
+      countdown = setInterval(function() {
+        timeLeft--;
+        if (timeLeft >= 0) {
+          display.textContent = timeLeft;
+        }
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          display.textContent = "Time's up!";
+          display.classList.add("done");
+        }
+      }, 1000);
+    });
+
+    // Reset countdown
+    resetBtn.addEventListener("click", function() {
+      clearInterval(countdown);
+      timeLeft = parseInt(startValueInput.value) || 10;
+      display.classList.remove("done");
+      display.textContent = timeLeft;
+    });
+  </script>
+
+</body>
+</html>

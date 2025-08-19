@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <style>
+        body{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 20px;
+    }
+    span{
+        font-weight: bold;
+        font-size: x-large;
+        padding: 50px;
+    }
+    button{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    input{
+        font-size: 20px;
+    }
+    </style>
+</head>
+<body>
+    <h1>Button Is Clicked</h1>
+    <p> count: <span id="count">0</span></p>
+    <button id="increaseBtn">Increase</button>
+    <button id="decreaseBtn">Decrease</button>
+    <button id="resetBtn">Reset</button>
+    <label> step: <input type="number" id="stepValue" minute="1" value="1"></label>
+    <script>
+        const countDisplay = document.getElementById("count");
+        const increaseBtn = document.getElementById("increaseBtn");
+        const decreaseBtn = document.getElementById("decreaseBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const stepValueInput = document.getElementById("stepValue");
+        
+         let count = 0;
+        increaseBtn.addEventListener('click', function() {
+              count++;
+        countDisplay.textContent = count;
+        });
+
+        decreaseBtn.addEventListener('click', function() {
+            if(count > 0)
+            count--;
+        countDisplay.textContent = count;
+        });
+        resetBtn.addEventListener('click', function() {
+            count = 0;
+            countDisplay.textContent = count;
+            alert("Counter has been reset!");
+        });
+        stepValue.addEventListener('click', function() {
+           let step = parseInt(stepValueInput.value) || 1;
+           step += count;
+           countDisplay.textContent = count;
+        });
+        stepValue.addEventListener('click', function() {
+           let step = parseInt(stepValueInput.value) || 1;
+           if(count - step >= 0){
+            step -= count;
+           } else {
+            count = 0;
+           }
+           countDisplay.textContent = count;
+        });
+        
+         
+         
+    </script>
+</body>
+</html>

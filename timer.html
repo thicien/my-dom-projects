@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopwatch-Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: aqua;
+    }
+    #display {
+      font-size: 5em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      color: rgb(19, 19, 199);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      background-color: blue;
+      margin-left: 600px;
+      margin-right: 520px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timer">
+    <h2>Stopwatch-Timer</h2>
+  <div id="display">00:00</div>
+
+  <button id="startBtn">Start</button>
+  <button id="stopBtn">Stop</button>
+  <button id="resetBtn">Reset</button>
+  <button id="lapBtn">Lap</button>
+  <button id="toggleModeBtn">Switch to Countdown</button>
+
+  <div id="countdownInput" style="margin-top:10px; display:none;">
+    <input type="number" id="countdownMinutes" placeholder="Minutes" min="1" />
+    <button id="setCountdown">Set</button>
+  </div>
+
+  <ul id="laps"></ul>
+  </div>
+
+  <script>
+    let time = 0;
+    let interval = null;
+    let isRunning = false;
+    let isCountdown = false;
+
+    const display = document.getElementById("display");
+    const laps = document.getElementById("laps");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const lapBtn = document.getElementById("lapBtn");
+    const toggleModeBtn = document.getElementById("toggleModeBtn");
+    const countdownInput = document.getElementById("countdownInput");
+    const countdownMinutes = document.getElementById("countdownMinutes");
+    const setCountdown = document.getElementById("setCountdown");
+
+    function updateDisplay() {
+      const mins = String(Math.floor(time / 60)).padStart(2, '0');
+      const secs = String(time % 60).padStart(2, '0');
+      display.textContent = `${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+      interval = setInterval(() => {
+        if (isCountdown) {
+          if (time > 0) {
+            time--;
+          } else {
+            clearInterval(interval);
+            alert("Countdown finished!");
+            isRunning = false;
+          }
+        } else {
+          time++;
+        }
+        updateDisplay();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(interval);
+      isRunning = false;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      time = 0;
+      updateDisplay();
+      laps.innerHTML = "";
+    }
+
+    function recordLap() {
+      if (!isRunning || isCountdown) return;
+      const li = document.createElement("li");
+      li.textContent = display.textContent;
+      laps.appendChild(li);
+    }
+
+    function toggleMode() {
+      isCountdown = !isCountdown;
+      resetTimer();
+      countdownInput.style.display = isCountdown ? "block" : "none";
+      toggleModeBtn.textContent = isCountdown ? "Switch to Stopwatch" : "Switch to Countdown";
+    }
+
+    function setCountdownTime() {
+      const minutes = parseInt(countdownMinutes.value);
+      if (!isNaN(minutes) && minutes > 0) {
+        time = minutes * 60;
+        updateDisplay();
+      }
+    }
+
+    
+    startBtn.onclick = startTimer;
+    stopBtn.onclick = stopTimer;
+    resetBtn.onclick = resetTimer;
+    lapBtn.onclick = recordLap;
+    toggleModeBtn.onclick = toggleMode;
+    setCountdown.onclick = setCountdownTime;
+
+    updateDisplay(); 
+  </script>
+
+</body>
+</html>

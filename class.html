@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>classList Demo</title>
+  <style>
+    #box {
+      width: 150px;
+      height: 150px;
+      background: lightgray;
+      margin: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .red { background: red; color: white; }
+    .blue { background: blue; color: white; }
+    .big { transform: scale(1.3); }
+    .round { border-radius: 50%; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<h2>JavaScript classList Methods Demo</h2>
+
+<div id="box">Box</div>
+
+<button id="btnAddRed">Add Red</button>
+<button id="btnRemoveRed">Remove Red</button>
+<button id="btnToggleRound">Toggle Round</button>
+<button id="btnCheckBig">Check Big</button>
+<button id="btnReplaceRedBlue">Replace Red → Blue</button>
+<button id="btnHideBox">Hide/Show</button>
+
+<script>
+  const box = document.getElementById("box");
+
+  document.getElementById("btnAddRed").addEventListener("click", () => {
+    box.classList.add("red");
+  });
+
+  document.getElementById("btnRemoveRed").addEventListener("click", () => {
+    box.classList.remove("red");
+  });
+
+  document.getElementById("btnToggleRound").addEventListener("click", () => {
+    box.classList.toggle("round");
+  });
+
+  document.getElementById("btnCheckBig").addEventListener("click", () => {
+    if (box.classList.contains("big")) {
+      alert("Box is BIG!");
+    } else {
+      alert("Box is NOT big — making it big now!");
+      box.classList.add("big");
+    }
+  });
+
+  document.getElementById("btnReplaceRedBlue").addEventListener("click", () => {
+    box.classList.replace("red", "blue");
+  });
+
+  document.getElementById("btnHideBox").addEventListener("click", () => {
+    box.classList.toggle("hidden");
+  });
+</script>
+
+</body>
+</html>

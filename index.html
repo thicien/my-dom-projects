@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .dark {
+    background-color: black;
+    color: white;
+  }
+
+  .light {
+    background-color: white;
+    color: black;
+  }
+  </style>
+</head>
+<body class="light">
+  <h2>Switch theme</h2>
+  <button onclick="setDark()">dark mode</button>
+  <button onclick="setLight()">light mode</button>
+
+  <script>
+    function setDark() {
+      document.body.classList.replace("light", "dark");
+    }
+
+    function setLight() {
+      document.body.classList.replace("dark", "light");
+    }
+  </script>
+</body>
+</html>

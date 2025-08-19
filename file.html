@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+ <style>
+   body {
+      font-family: sans-serif;
+      margin: 10px;
+      background: #f3c2c2;
+   }
+
+   .toolbar {
+      margin-bottom: 10px;
+   }
+
+   .file-system {
+      padding-left: 5px;
+      border-left: 2px solid #ccc;
+   }
+
+   .folder, .file {
+      margin: 1px;
+      padding: 5px;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer; 
+      user-select: none; 
+      display: flex;
+      align-items: center;
+      gap: 20px;
+   }
+
+   .folder:hover, .file:hover {
+       background: #eaeaea;
+   }
+
+   .folder > .children {
+      margin-left: 20px;
+      border-left: 1px dashed #aaa;
+      padding-left: 10px;
+      display: none;
+   }
+
+   .folder.open > .children {
+      display: block;
+   }
+
+    span[contenteditable="true"]:focus {
+      outline: 1px dashed blue;
+    }
+
+    button {
+      margin-right: 6px;
+    }
+ </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button id="new-folder">New Folder</button>
+    <button id="new-file">New File</button>
+    <button id="save">💾 Save</button>
+    <button id="load">🔁 Load</button>
+  </div>
+  <div id="file-system" class="file-system"></div>
+
+  <script>
+      
+  const fsContainer = document.getElementById('file-system');
+  const newFolderBtn = document.getElementById('new-folder');
+  const newFileBtn = document.getElementById('new-file');
+  const saveBtn = document.getElementById('save');
+  const loadBtn = document.getElementById('load');
+
+  let draggedItem = null;
+
+  function createNode(name, type, children = []) {
+    const node = document.createElement('div');
+    node.className = type;
+    node.setAttribute('draggable', true);
+
+    const label = document.createElement('span');
+    label.textContent = name;
+    label.contentEditable = true;
+    node.appendChild(label); 
+
+    const actions = document.createElement('button');
+    actions.textContent = '❌';
+    actions.onclick = () => node.remove();
+    node.appendChild(actions);
+
+    if (type === 'folder') {
+      const childrenContainer = document.createElement('div');
+      childrenContainer.className = 'children';
+      node.appendChild(childrenContainer);
+
+      label.addEventListener('click', (e) => {
+        e.stopPropagation();
+        node.classList.toggle('open');
+      });
+
+      children.forEach(child => {
+        const childNode = createNode(child.name, child.type, child.children);
+        childrenContainer.appendChild(childNode);
+      });
+    }
+
+    node.addEventListener('dragstart', (e) => {
+      draggedItem = node;
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    node.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    node.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (node.classList.contains('folder') && draggedItem !== node) {
+        node.querySelector('.children').appendChild(draggedItem);
+      }
+    });
+
+    return node;
+  }
+
+  function domToJson(node) {
+    const label = node.querySelector('span')?.textContent;
+    const type = node.classList.contains('folder') ? 'folder' : 'file';
+
+    if (type === 'file') {
+      return { name: label, type };
+    }
+
+    const childrenContainer = node.querySelector('.children');
+    const children = Array.from(childrenContainer.children).map(domToJson);
+    return { name: label, type, children };
+  }
+
+  function loadJsonTree(data) {
+    return createNode(data.name, data.type, data.children || []);
+  }
+
+  newFolderBtn.addEventListener('click', () => {
+    const folder = createNode('New Folder', 'folder');
+    fsContainer.appendChild(folder);
+  });
+
+  newFileBtn.addEventListener('click', () => {
+    const file = createNode('New File', 'file');
+    fsContainer.appendChild(file);
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const structure = Array.from(fsContainer.children).map(domToJson);
+    localStorage.setItem('fileSystem', JSON.stringify(structure));
+    alert('Structure saved!');
+  });
+
+  loadBtn.addEventListener('click', () => {
+    fsContainer.innerHTML = '';
+    const data = JSON.parse(localStorage.getItem('fileSystem') || '[]');
+    data.forEach(item => {
+      const node = loadJsonTree(item);
+      fsContainer.appendChild(node);
+    });
+  });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!-- <html lang="en">
+<head>
+   <style>
+  table, td, th {
+    border: 5px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+  } 
+  </style>
+</head>
+<body>
+    <h1>Basic table creation</h1>
+    <div id="container"></div>
+    <table id="deleteTable">
+        <tr>
+            <td>Row 1</td><td><button class="deleteBtn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Row 2</td><td><button class="deleteBtn">Delete</button></td>
+        </tr>
+    </table>
+    <button id="addRowBtn">newRow</button>
+    <script>
+
+
+  const table = document.getElementById("deleteTable");
+
+  table.addEventListener("click", function(e) {
+    if (e.target.classList.contains("deleteBtn")) {
+      const row = e.target.closest("tr");
+      table.removeChild(row);
+    }
+  });
+        const tableContainer = document.getElementById('container');
+        const table = document.getElementById('deleteTable');
+
+        table.addEventListener('click', function(e) {
+            if(e.target.classList.contains('deleteBtn')){
+                const row = e.target.closest('tr');
+                table.removeChild(row);
+            }
+        });
+        const addRowBtn = document.getElementById('addRowBtn');
+
+        for(let row = 0; row <= 3; row++) {
+            const tr = document.createElement('tr');
+        for(let col = 0; col <= 3; col++) {
+            const td = document.createElement('td');
+            td.textContent = `Row ${row} , Col ${col}`
+            tr.appendChild(td);
+            
+        }
+        table.appendChild(tr);
+        }
+        tableContainer.appendChild(table);
+
+
+        addRowBtn.addEventListener('click', () => {
+            const newRow = table.insertRow();
+            for(let i = 0; i < 3; i++) {
+                const cell = newRow.insertCell();
+                cell.textContent = 'New Cell';
+            }
+        });
+    </script>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Delete Row</title>
+<style>
+  table, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>Delete Row Example</h2>
+<table id="deleteTable">
+  <tr>
+    <td>Row 1</td><td><button class="deleteBtn">Delete</button></td>
+  </tr>
+  <tr>
+    <td>Row 2</td><td><button class="deleteBtn">Delete</button></td>
+  </tr>
+</table>
+
+<script>
+  const table = document.getElementById("deleteTable");
+
+  table.addEventListener("click", function(e) {
+    if (e.target.classList.contains("deleteBtn")) {
+      const row = e.target.closest("tr");
+      table.removeChild(row);
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+

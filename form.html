@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+    <style>
+    input{
+       display: block;
+       margin: 20px;
+       padding: 15px;
+       width: 200%;
+       max-width: 400px;
+       border: 8px;
+       border-radius: 5px;
+    }
+    .error{
+        color: red;
+        font-size: var(0.3em);
+        margin: 2px 0 -2px;
+    }
+    #result{
+        margin-top: 20px;
+        margin-left: 220px;
+        border: 5px solid #ccc;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: white;
+        text-decoration: black;
+        width: 200%;
+        max-width: 360px;
+        
+    }
+    button:disabled{
+        background-color: var(#ccc);
+        border-radius: 5px;
+        margin-left: 20px;
+    }
+    .aligning{
+      border-radius: 20px;
+      justify-items: center;
+      background-color: rgb(48, 90, 6);
+    }
+    h1{
+        margin-left: 190px;
+        background-color: #ccc; 
+        border-radius: 5px;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="aligning">
+        <h1>REGISTRATION FORM</h1>
+      <form id="form">
+        <input type="text" id="name" placeholder="Name">
+        <div class="error" id="nameError"></div>
+        <input type="email" id="email" placeholder="Email">
+        <div class="error" id="emailError"></div>
+        <input type="password" id="password" placeholder="Password">
+        <div class="error" id="passwordError"></div>
+        <input type="password" id="confirm" placeholder="Confirm Password">
+        <div class="error" id="confirmError"></div>
+        <button type="submit" id="submitBtn" disabled>Submit</button>
+      </form>
+    
+      <div id="result"> 
+
+    </div>
+
+    </div>
+    
+    <script>
+        const nameInput = document.getElementById("name");
+        const emailInput= document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const confirmInput = document.getElementById("confirm");
+        const submitBtn = document.getElementById("submitBtn");
+        const result = document.getElementById("result");
+
+        const errors = {
+            name : true,
+            email : true,
+            password : true,
+            confirm : true
+
+        };
+
+        function validateForm() {
+           const allValid = !Object.values(errors).includes(true);
+           submitBtn.disabled = !allValid;
+           }
+
+        nameInput.addEventListener("input", () => {
+           const errorField = document.getElementById("nameError");
+           if (nameInput.value.trim().length < 8) {
+           errorField.textContent = "Name must be at least 8 characters.";
+           errors.name = true;
+           } else {
+           errorField.textContent = "";
+           errors.name = false;
+           }
+           
+           validateForm();
+        });
+
+        emailInput.addEventListener("input", () => {
+           const errorField = document.getElementById("emailError");
+           const valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailInput.value);
+           if (!valid) {
+           errorField.textContent = "This email is invalid.";
+           errors.email = true;
+           } else {
+           errorField.textContent = "";
+           errors.email = false;
+           }
+           
+           validateForm();
+        });
+
+        passwordInput.addEventListener("input", () => {
+           const errorField = document.getElementById("passwordError");
+           if (passwordInput.value.length < 8) {
+           errorField.textContent = "Password must be at least 8 characters.";
+           errors.password = true;
+           } else {
+           errorField.textContent = "";
+           errors.password = false;
+           }
+
+      
+           confirmInput.dispatchEvent(new Event("input"));
+           validateForm();
+        });
+
+        confirmInput.addEventListener("input", () => {
+           const errorField = document.getElementById("confirmError");
+           if (confirmInput.value !== passwordInput.value) {
+           errorField.textContent = "Passwords doesn't match.";
+           errors.confirm = true;
+           } else {
+           errorField.textContent = "";
+           errors.confirm = false;
+           }
+
+           validateForm();
+        });
+        
+
+        document.getElementById("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            result.innerHTML = `
+            <h2> Submitted Data:</h2>
+            <p><strong>Name:</strong> ${nameInput.value}</p>
+            <p><strong>Email:</strong> ${emailInput.value}</p>
+            
+            `; 
+            this.reset();
+            submitBtn.disabled = true; 
+        })
+    </script>
+    
+</body>
+</html>

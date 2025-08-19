@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter with Step Value</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    input {
+      width: 60px;
+      text-align: center;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+    p {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Counter with Step Value</h1>
+  <p>Count: <span id="count">0</span></p>
+
+  <label>
+    Step:
+    <input type="number" id="stepValue" value="1" min="1">
+  </label>
+  <br><br>
+
+  <button id="increaseBtn">Increase</button>
+  <button id="decreaseBtn">Decrease</button>
+
+  <script>
+
+    const countDisplay = document.getElementById("count");
+    const stepValueInput = document.getElementById("stepValue");
+    const increaseBtn = document.getElementById("increaseBtn");
+    const decreaseBtn = document.getElementById("decreaseBtn");
+
+    let count = 0;
+
+    increaseBtn.addEventListener("click", function() {
+      let step = parseInt(stepValueInput.value) || 1; 
+      count += step;
+      countDisplay.textContent = count;
+    });
+
+    decreaseBtn.addEventListener("click", function() {
+      let step = parseInt(stepValueInput.value) || 1;
+      if (count - step >= 0) {
+        count -= step;
+      } else {
+        count = 0;
+      }
+      countDisplay.textContent = count;
+    });
+  </script>
+
+</body>
+</html>
