@@ -1,14 +1,14 @@
-// function exchangeArrays(arr1, arr2) {
+function exchangeArrays(arr1, arr2) {
 
-//   let rev1 = [...arr1].reverse();
-//   let rev2 = [...arr2].reverse();
-//   arr1.length = 0;
-//   arr1.push(...rev2);
-//   arr2.length = 0;
-//   arr2.push(...rev1);
-// }
-// let myArray = ['a', 'b', 'c'];
-// let otherArray = [1, 2, 3];
+  let rev1 = [...arr1].reverse();
+  let rev2 = [...arr2].reverse();
+  arr1.length = 0;
+  arr1.push(...rev2);
+  arr2.length = 0;
+  arr2.push(...rev1);
+}
+let myArray = ['a', 'b', 'c'];
+let otherArray = [1, 2, 3];
 
 // exchangeArrays(myArray, otherArray);
 
