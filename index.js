@@ -10,6 +10,37 @@ function exchangeArrays(arr1, arr2) {
 let myArray = ['a', 'b', 'c'];
 let otherArray = [1, 2, 3];
 
+function stringExpansion(s) {
+    let result = '';
+    let buffer = '';
+    let repeat = 1; 
+
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+        if (/[a-zA-Z]/.test(char)) {
+            buffer += char;
+        } else if (/\d/.test(char)) {
+            repeat = parseInt(char);
+            if (buffer) {
+                result += buffer.repeat(repeat);
+                buffer = '';
+            }
+        }
+    }
+
+    result += buffer;
+
+    return result;
+}
+
+console.log(stringExpansion("3D2a5d2f")); // "DDDaadddddff"
+console.log(stringExpansion("3abc"));     // "aaabbbccc"
+console.log(stringExpansion("3d332f2a")); // "dddffaa"
+console.log(stringExpansion("abcde"));    // "abcde"
+console.log(stringExpansion("1111"));     // ""
+console.log(stringExpansion(""));         
+
+
 // exchangeArrays(myArray, otherArray);
 
 // console.log(myArray);
