@@ -58,8 +58,8 @@
   <div class="toolbar">
     <button id="new-folder">New Folder</button>
     <button id="new-file">New File</button>
-    <button id="save">💾 Save</button>
-    <button id="load">🔁 Load</button>
+    <button id="save">Save</button>
+    <button id="load">Load</button>
   </div>
   <div id="file-system" class="file-system"></div>
   <script>   
@@ -117,7 +117,6 @@
         node.querySelector('.children').appendChild(draggedItem);
       }
     });
-
     return node;
   }
 
@@ -162,7 +161,6 @@
       fsContainer.appendChild(node);
     });
   });
-
   </script>
 </body>
 </html>
