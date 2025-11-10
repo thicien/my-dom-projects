@@ -10,11 +10,13 @@
        border: 8px;
        border-radius: 5px;
     }
+
     .error{
         color: red;
-        font-size: var(0.3em);
+        font-size: var(0.2em);
         margin: 2px 0 -2px;
     }
+
     #result{
         margin-top: 20px;
         margin-left: 220px;
@@ -25,18 +27,20 @@
         text-decoration: black;
         width: 200%;
         max-width: 360px;
-        
     }
+
     button:disabled{
         background-color: var(#ccc);
         border-radius: 5px;
         margin-left: 20px;
     }
+
     .aligning{
       border-radius: 20px;
       justify-items: center;
       background-color: rgb(48, 90, 6);
     }
+    
     h1{
         margin-left: 190px;
         background-color: #ccc; 
@@ -49,7 +53,7 @@
     <div class="aligning">
         <h1>REGISTRATION FORM</h1>
       <form id="form">
-        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="name" >
         <div class="error" id="nameError"></div>
         <input type="email" id="email" placeholder="Email">
         <div class="error" id="emailError"></div>
