@@ -53,7 +53,7 @@
     <div class="aligning">
         <h1>REGISTRATION FORM</h1>
       <form id="form">
-        <input type="text" id="name" >
+        <input type="text" id="name" placeholder="Name">
         <div class="error" id="nameError"></div>
         <input type="email" id="email" placeholder="Email">
         <div class="error" id="emailError"></div>
@@ -64,10 +64,7 @@
         <button type="submit" id="submitBtn" disabled>Submit</button>
       </form>
     
-      <div id="result"> 
-
-    </div>
-
+      <div id="result"></div>
     </div>
     
     <script>
@@ -100,7 +97,6 @@
            errorField.textContent = "";
            errors.name = false;
            }
-           
            validateForm();
         });
 
@@ -114,7 +110,6 @@
            errorField.textContent = "";
            errors.email = false;
            }
-           
            validateForm();
         });
 
@@ -127,8 +122,6 @@
            errorField.textContent = "";
            errors.password = false;
            }
-
-      
            confirmInput.dispatchEvent(new Event("input"));
            validateForm();
         });
@@ -142,7 +135,6 @@
            errorField.textContent = "";
            errors.confirm = false;
            }
-
            validateForm();
         });
         
