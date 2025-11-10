@@ -65,9 +65,7 @@
 
     
     let viewportHeight = viewport.clientHeight;
-    let lastRecalcId = 0; // for rAF dedupe
-
-    // Set spacer height = total virtual content height
+    let lastRecalcId = 0; 
     function updateSpacerHeight() {
       spacer.style.height = (TOTAL_ITEMS * ROW_HEIGHT) + 'px';
     }
@@ -85,11 +83,9 @@
     function render() {
       const { startIndex, endIndex, scrollTop } = computeVisibleRange();
 
-      // Position the items container to align with where the first row would be
       const translateY = startIndex * ROW_HEIGHT;
       items.style.transform = `translateY(${translateY}px)`;
 
-      // Build the current slice of rows
       const frag = document.createDocumentFragment();
       items.innerHTML = '';
       for (let i = startIndex; i < endIndex; i++) {
@@ -100,25 +96,21 @@
         frag.appendChild(div);
       }
       items.appendChild(frag);
-
-      // Info label
       rangeInfo.textContent = `Showing ${startIndex + 1}–${endIndex} of ${TOTAL_ITEMS} (rows on DOM: ${endIndex - startIndex})`;
     }
 
     function scheduleRender() {
       const id = ++lastRecalcId;
       requestAnimationFrame(() => {
-        if (id !== lastRecalcId) return; // drop stale frames
+        if (id !== lastRecalcId) return; 
         viewportHeight = viewport.clientHeight;
         render();
       });
     }
 
-    // Events
     viewport.addEventListener('scroll', scheduleRender, { passive: true });
     window.addEventListener('resize', scheduleRender);
 
-    // Jump buttons (demo)
     document.getElementById('toTop').addEventListener('click', () => {
       viewport.scrollTop = 0; scheduleRender();
     });
@@ -128,8 +120,6 @@
     document.getElementById('toEnd').addEventListener('click', () => {
       viewport.scrollTop = TOTAL_ITEMS * ROW_HEIGHT; scheduleRender();
     });
-
-    // Init
     updateSpacerHeight();
     scheduleRender();
   </script>
