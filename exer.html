@@ -53,9 +53,8 @@
     let countdown;
     let timeLeft = 10;
 
-    // Start countdown
     startBtn.addEventListener("click", function() {
-      clearInterval(countdown); // Prevent multiple intervals
+      clearInterval(countdown);
       timeLeft = parseInt(startValueInput.value) || 10;
       display.classList.remove("done");
       display.textContent = timeLeft;
@@ -73,7 +72,6 @@
       }, 1000);
     });
 
-    // Reset countdown
     resetBtn.addEventListener("click", function() {
       clearInterval(countdown);
       timeLeft = parseInt(startValueInput.value) || 10;
