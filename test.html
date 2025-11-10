@@ -1,0 +1,42 @@
+<!-- Create an unordered list with several items, and write a JavaScript function 
+ that highlights a list item when the mouse hovers over it. -->
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Highlight List Item</title>
+  <style>
+    
+  </style>
+</head>
+<body>
+  <h2>Hover over the list items</h2>
+  <ul id="myList">
+    <li>Item One</li>
+    <li>Item Two</li>
+    <li>Item Three</li>
+    <li>Item Four</li>
+    <li>Item Five</li>
+  </ul>
+
+  <script>
+    
+    const listItems = document.querySelectorAll("#myList li");
+
+    
+    listItems.forEach(item => {
+
+      item.addEventListener("mouseover", () => {
+        item.classList.add("highlight");
+      });
+
+      
+      item.addEventListener("mouseout", () => {
+        item.classList.remove("highlight");
+      });
+    });
+  </script>
+</body>
+</html>

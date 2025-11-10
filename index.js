@@ -74,3 +74,65 @@ function allPrimeFactorsDivisible(a, b) {
 console.log(allPrimeFactorsDivisible(30, 12)); 
 console.log(allPrimeFactorsDivisible(15, 12)); 
 console.log(allPrimeFactorsDivisible(45, 15)); 
+
+
+
+function sepStr(sentence) {
+  // 1. Split sentence into words
+  let words = sentence.split(' ');
+
+  // 2. Convert each word into an array of letters
+  let splitWords = words.map(word => word.split(''));
+
+  // 3. Find the longest word length
+  let maxLength = Math.max(...splitWords.map(word => word.length));
+
+  // 4. Transpose: build rows from columns
+  let result = [];
+  for (let col = 0; col < maxLength; col++) {
+    let newRow = splitWords.map(word => word[col] !== undefined ? word[col] : '');
+    result.push(newRow);
+  }
+
+  return result;
+}
+
+
+function findUnique(arr) {
+  // Helper functions
+  const isFloat = n => n % 1 !== 0;
+  const isPositive = n => n > 0;
+  const isOdd = n => Math.abs(n) % 2 === 1;
+
+  // 1. Check float vs integer
+  let floats = arr.filter(n => isFloat(n));
+  if (floats.length === 1) return floats[0];
+  let integers = arr.filter(n => !isFloat(n));
+  if (integers.length === 1) return integers[0];
+
+  // 2. Check positive vs negative
+  let positives = arr.filter(n => isPositive(n));
+  if (positives.length === 1) return positives[0];
+  let negatives = arr.filter(n => !isPositive(n));
+  if (negatives.length === 1) return negatives[0];
+
+  // 3. Check odd vs even
+  let odds = arr.filter(n => isOdd(n));
+  if (odds.length === 1) return odds[0];
+  let evens = arr.filter(n => !isOdd(n));
+  if (evens.length === 1) return evens[0];
+
+  // 4. Check unique value
+  return arr.find(n => arr.indexOf(n) === arr.lastIndexOf(n));
+}
+
+// Test examples
+console.log(findUnique([1,2,3,5,7])); // 2
+console.log(findUnique([2,4,6,8,9])); // 9
+console.log(findUnique([2,-4,6,8]));  // -4
+console.log(findUnique([-2,-4,-6,8]));// 8
+console.log(findUnique([2,4.4,6,8])); // 4.4
+console.log(findUnique([2.2,4.4,6.6,8])); // 8
+console.log(findUnique([2,2,2,4]));   // 4
+console.log(findUnique([-2,-4,-6.6,8])); // -6.6
+console.log(findUnique([-2,-4,-7,8])); // 8

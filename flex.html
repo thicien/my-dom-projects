@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Space Between</title>
+  <style>
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f2dede;
+}
+fc1de   
+.container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.box {
+  width: 60px;
+  height: 60px;
+  color: rgb(249, 240, 240);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.red {
+     background: crimson; 
+    }
+.blue {
+     background: royalblue; 
+    }
+.green {
+     background: seagreen; 
+    }
+.orange {
+     background: orange; 
+    }
+.purple {
+     background: purple;
+   }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box red">1</div>
+    <div class="box blue">2</div>
+    <div class="box green">3</div>
+    <div class="box orange">4</div>
+    <div class="box purple">5</div>
+  </div>
+</body>
+</html>

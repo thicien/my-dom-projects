@@ -1,26 +1,40 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Random Background</title>
+  <title>Change Text Color</title>
 </head>
 <body>
-    <div>
-        <h1>Click the button to get a random background color</h1>
-        <button onclick="changeRandomBg()">Change Background</button>
+  <h2 id="text">Click a button to change my color!</h2>
 
-    </div>
-     <script>
-    function changeRandomBg() {
-      
-      let r = Math.floor(Math.random() * 256);
-      let g = Math.floor(Math.random() * 256);
-      let b = Math.floor(Math.random() * 256);
+  <button id="red">Red</button>
+  <button id="blue">Blue</button>
+  <button id="green">Green</button>
+  <button id="reset">Reset</button>
 
-      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-    }
+  <script>
+    // Get the text and buttons
+    const text = document.getElementById("text");
+    const redBtn = document.getElementById("red");
+    const blueBtn = document.getElementById("blue");
+    const greenBtn = document.getElementById("green");
+    const resetBtn = document.getElementById("reset");
+
+    // Event listeners to change text color
+    redBtn.addEventListener("click", () => {
+      text.style.color = "red";
+    });
+
+    blueBtn.addEventListener("click", () => {
+      text.style.color = "blue";
+    });
+
+    greenBtn.addEventListener("click", () => {
+      text.style.color = "green";
+    });
+
+    resetBtn.addEventListener("click", () => {
+      text.style.color = "black"; // back to default
+    });
   </script>
-    
 </body>
 </html>
-
